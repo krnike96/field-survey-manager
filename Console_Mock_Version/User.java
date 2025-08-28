@@ -1,36 +1,23 @@
-import java.util.*;
-
 public class User {
-    private String[] users = new String[10]; 
-    private int userCount = 0;
-    private Scanner scanner;
+    private String name;
+    private String role; // Admin or SurveyTaker
+    private String password;
 
-    public User() {
-        scanner = new Scanner(System.in);
-        users[userCount++] = "admin:admin123,admin";
+    public User(String name, String role, String password) {
+        this.name = name;
+        this.role = role;
+        this.password = password;
     }
 
-    public boolean validateUser(String username, String password, boolean[] isAdmin) {
-        String userData = username + ":" + password + ",";
-        for (int i = 0; i < userCount; i++) {
-            if (users[i].startsWith(userData)) {
-                isAdmin[0] = users[i].endsWith("admin");
-                return true;
-            }
-        }
-        return false;
+    public String getName() {
+        return name;
     }
 
-    public void createUser() {
-        if (userCount >= users.length) {
-            System.out.println("User limit reached.");
-            return;
-        }
-        System.out.print("Enter new username: ");
-        String username = scanner.nextLine();
-        System.out.print("Enter password: ");
-        String password = scanner.nextLine();
-        users[userCount++] = username + ":" + password + ",user";
-        System.out.println("User created.");
+    public String getRole() {
+        return role;
+    }
+
+    public boolean authenticate(String password) {
+        return this.password.equals(password);
     }
 }
